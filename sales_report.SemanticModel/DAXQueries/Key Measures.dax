@@ -1,0 +1,29 @@
+DEFINE
+	MEASURE 'Key Measures'[Sales] = SUMX(
+		'Sales',
+		'Sales'[Quantity] * RELATED('Products'[Current Price])
+	)
+	MEASURE 'Key Measures'[Cost] = SUMX(
+		'Sales',
+		'Sales'[Quantity] * RELATED('Products'[Cost])
+	)
+	MEASURE 'Key Measures'[Profit] = [Sales] - [Cost]
+	MEASURE 'Key Measures'[Profit Margin] = DIVIDE(
+		[Profit],
+		[Sales],
+		0
+	)
+	
+	MEASURE 'Key Measures'[Sales YA] = CALCULATE(
+		[Sales],
+		DATEADD(
+			'Dates'[Date],
+			-1,
+			YEAR
+		)
+	)
+
+EVALUATE
+	{
+		[Total Sales]
+	}

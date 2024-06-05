@@ -1,0 +1,73 @@
+{
+  "name": "My New Them",
+  "dataColors": [
+    "#FAD9E6",
+    "#D3E8E2",
+    "#FFF1CF",
+    "#D1C6E7",
+    "#FFDDE5",
+    "#C5DFF8",
+    "#E8D1B6",
+    "#F0D9FF"
+  ],
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "textClasses": {
+    "title": {
+      "color": "#cccccc",
+      "fontFace": "Lucida San Unicode",
+      "fontSize": 14
+    },
+    "label": {
+      "color": "#cccccc",
+      "fontFace": "Lucida San Unicode",
+      "fontSize": 14
+    },
+    "callout": {
+      "color": "#cccccc",
+      "fontFace": "Lucida San Unicode",
+      "fontSize": 14
+    },
+    "header": {
+      "color": "#b3b3b3",
+      "fontFace": "Lucida San Unicode",
+      "fontSize": 14
+    },
+    "largeTitle": {
+      "color": "#b3b3b3",
+      "fontFace": "Lucida San Unicode",
+      "fontSize": 16
+    }
+  },
+  "minimum": "#FFDFD3",
+  "maximum": "#E2F0CB",
+  "center": "#E2F0CB",
+  "foreground": "#666666",
+  "foregroundDark": "#1a1a1a",
+  "foregroundNeutralDark": "#666666",
+  "background": "#e6e6e6",
+  "backgroundDark": "#808080",
+  "bad": "#FF6961",
+  "good": "#77DD77",
+  "neutral": "#CFCFCF"
+}

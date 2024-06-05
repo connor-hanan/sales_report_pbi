@@ -1,0 +1,175 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 887.58042448428625,
+            "y": 151.47083795587361
+          },
+          "nodeIndex": "Customers",
+          "nodeLineageTag": "f4213e9d-1bf4-400e-ba33-bbe883443014",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 2,
+          "expandedHeight": 128
+        },
+        {
+          "location": {
+            "x": 845.48710219247391,
+            "y": 760.10137528224186
+          },
+          "nodeIndex": "Dates",
+          "nodeLineageTag": "c4ec680e-cf8a-4b00-8a82-f1d3d6f65e73",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 9,
+          "expandedHeight": 300
+        },
+        {
+          "location": {
+            "x": 1191.2314525440677,
+            "y": 228.28907833129148
+          },
+          "nodeIndex": "Location",
+          "nodeLineageTag": "6e93cf65-ba1b-45bd-91b9-56b75abc10b9",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 3,
+          "expandedHeight": 300
+        },
+        {
+          "location": {
+            "x": 537.96061704388649,
+            "y": 479.66972940735491
+          },
+          "nodeIndex": "Products",
+          "nodeLineageTag": "6441de5a-80d2-4917-b65a-1dceeee3f8a3",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 4,
+          "expandedHeight": 272
+        },
+        {
+          "location": {
+            "x": 873.92302304529574,
+            "y": 412.74718179060659
+          },
+          "nodeIndex": "Sales",
+          "nodeLineageTag": "7fd06d7a-4dae-4ab7-9f98-5c6bfe07d873",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 8,
+          "expandedHeight": 248
+        },
+        {
+          "location": {
+            "x": 1189.529682170014,
+            "y": 639.05799604934509
+          },
+          "nodeIndex": "Sales People",
+          "nodeLineageTag": "97f504cb-a73c-400b-ad86-10b23e46bda6",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 5,
+          "expandedHeight": 128
+        },
+        {
+          "location": {
+            "x": 433.48887048635356,
+            "y": 48.358092332868807
+          },
+          "nodeIndex": "Calculation group",
+          "nodeLineageTag": "847f54c1-44b6-4c9c-9116-22929e1b464b",
+          "size": {
+            "height": 72,
+            "width": 234
+          },
+          "zIndex": 6,
+          "expandedHeight": 128
+        },
+        {
+          "location": {
+            "x": 152.82374573601109,
+            "y": 493.75069682968552
+          },
+          "nodeIndex": "Client Profitability",
+          "nodeLineageTag": "313f1a97-19f5-4639-9c7b-c7bc5fe251a2",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 1,
+          "expandedHeight": 196.51432653507271
+        },
+        {
+          "location": {
+            "x": 162.96478310383583,
+            "y": 239.87731665558161
+          },
+          "nodeIndex": "Date Periods",
+          "nodeLineageTag": "058f8d76-1387-48d5-ba2b-3fb54eaebe47",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0,
+          "expandedHeight": 104
+        },
+        {
+          "location": {
+            "x": 1544.6830479345201,
+            "y": 371.99100558564277
+          },
+          "nodeIndex": "Outlier Parameters",
+          "nodeLineageTag": "e95861be-162a-449f-b3e2-8f5e0784cf28",
+          "size": {
+            "height": 72,
+            "width": 234
+          },
+          "zIndex": 0,
+          "expandedHeight": 104
+        },
+        {
+          "location": {
+            "x": 139.15479449205253,
+            "y": 49.115296364817652
+          },
+          "nodeIndex": ".Measures",
+          "size": {
+            "height": 72,
+            "width": 234
+          },
+          "zIndex": 0,
+          "expandedHeight": 153.69041101589517
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 96.59811424108679,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}
