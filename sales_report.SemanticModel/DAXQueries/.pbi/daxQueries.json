@@ -1,7 +1,8 @@
 {
   "version": "1.0.0",
   "tabOrder": [
-    "Key Measures"
+    "Query 1",
+    "Query 2"
   ],
-  "defaultTab": "Key Measures"
+  "defaultTab": "Query 2"
 }

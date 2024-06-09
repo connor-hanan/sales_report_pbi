@@ -11,7 +11,7 @@
         {
           "location": {
             "x": 887.58042448428625,
-            "y": 151.47083795587361
+            "y": 211.91845337195963
           },
           "nodeIndex": "Customers",
           "nodeLineageTag": "f4213e9d-1bf4-400e-ba33-bbe883443014",
@@ -25,7 +25,7 @@
         {
           "location": {
             "x": 845.48710219247391,
-            "y": 760.10137528224186
+            "y": 820.54899069832788
           },
           "nodeIndex": "Dates",
           "nodeLineageTag": "c4ec680e-cf8a-4b00-8a82-f1d3d6f65e73",
@@ -39,7 +39,7 @@
         {
           "location": {
             "x": 1191.2314525440677,
-            "y": 228.28907833129148
+            "y": 288.7366937473775
           },
           "nodeIndex": "Location",
           "nodeLineageTag": "6e93cf65-ba1b-45bd-91b9-56b75abc10b9",
@@ -53,7 +53,7 @@
         {
           "location": {
             "x": 537.96061704388649,
-            "y": 479.66972940735491
+            "y": 540.11734482344093
           },
           "nodeIndex": "Products",
           "nodeLineageTag": "6441de5a-80d2-4917-b65a-1dceeee3f8a3",
@@ -67,7 +67,7 @@
         {
           "location": {
             "x": 873.92302304529574,
-            "y": 412.74718179060659
+            "y": 473.19479720669261
           },
           "nodeIndex": "Sales",
           "nodeLineageTag": "7fd06d7a-4dae-4ab7-9f98-5c6bfe07d873",
@@ -81,7 +81,7 @@
         {
           "location": {
             "x": 1189.529682170014,
-            "y": 639.05799604934509
+            "y": 699.50561146543112
           },
           "nodeIndex": "Sales People",
           "nodeLineageTag": "97f504cb-a73c-400b-ad86-10b23e46bda6",
@@ -95,7 +95,7 @@
         {
           "location": {
             "x": 433.48887048635356,
-            "y": 48.358092332868807
+            "y": 108.80570774895483
           },
           "nodeIndex": "Calculation group",
           "nodeLineageTag": "847f54c1-44b6-4c9c-9116-22929e1b464b",
@@ -109,7 +109,7 @@
         {
           "location": {
             "x": 152.82374573601109,
-            "y": 493.75069682968552
+            "y": 554.1983122457716
           },
           "nodeIndex": "Client Profitability",
           "nodeLineageTag": "313f1a97-19f5-4639-9c7b-c7bc5fe251a2",
@@ -123,7 +123,7 @@
         {
           "location": {
             "x": 162.96478310383583,
-            "y": 239.87731665558161
+            "y": 300.3249320716676
           },
           "nodeIndex": "Date Periods",
           "nodeLineageTag": "058f8d76-1387-48d5-ba2b-3fb54eaebe47",
@@ -137,7 +137,7 @@
         {
           "location": {
             "x": 1544.6830479345201,
-            "y": 371.99100558564277
+            "y": 432.43862100172879
           },
           "nodeIndex": "Outlier Parameters",
           "nodeLineageTag": "e95861be-162a-449f-b3e2-8f5e0784cf28",
@@ -151,7 +151,7 @@
         {
           "location": {
             "x": 139.15479449205253,
-            "y": 49.115296364817652
+            "y": 109.56291178090368
           },
           "nodeIndex": ".Measures",
           "size": {
@@ -160,6 +160,19 @@
           },
           "zIndex": 0,
           "expandedHeight": 153.69041101589517
+        },
+        {
+          "location": {
+            "x": 1689.5282534424675,
+            "y": 332.14021072433809
+          },
+          "nodeIndex": "Products Parameter",
+          "nodeLineageTag": "4e517807-9e29-4dc4-acaf-3d7a367a8029",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",

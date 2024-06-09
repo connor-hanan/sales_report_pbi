@@ -482,7 +482,7 @@
     "#0D2E25",
     "#54484E"
   ],
-  "background": "#FFFFFF",
+  "background": "#CCCCCC",
   "foreground": "#1B1B1B",
   "tableAccent": "#0F1934",
   "visualStyles": {
@@ -501,7 +501,7 @@
           {
             "color": {
               "solid": {
-                "color": "#E6E6E6"
+                "color": "#CCCCCC"
               }
             }
           }
@@ -534,13 +534,15 @@
       "fontSize": 12
     },
     "callout": {
-      "fontFace": "'Lucida Sans Unicode'"
+      "fontFace": "'Lucida Sans Unicode'",
+      "fontSize": 38
     },
     "title": {
       "fontFace": "'Segoe UI Semibold', wf_segoe-ui_semibold, helvetica, arial, sans-serif",
-      "fontSize": 14,
+      "fontSize": 16,
       "color": "#FFFFFF"
     }
   },
-  "backgroundLight": "#C6C6C6"
+  "backgroundLight": "#C6C6C6",
+  "backgroundNeutral": "#9A9A9A"
 }
