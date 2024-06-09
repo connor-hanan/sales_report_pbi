@@ -1,0 +1,23 @@
+DEFINE    
+    MEASURE '.Measures'[Sales - IBCS] = [Sales - Brand Parameter]
+	MEASURE '.Measures'[Sales YA - IBCS] = [Sales YA - Brand Parameter]
+	MEASURE '.Measures'[ΔSales YA - IBCS] = [Sales - IBCS] - [Sales YA - IBCS]
+    MEASURE '.Measures'[Max value] = IF(
+		[Sales - IBCS]>[Sales YA - IBCS], 
+		[Sales - IBCS], 
+		[Sales YA - IBCS]
+	)
+    MEASURE '.Measures'[Red Max] = If(
+		[ΔSales YA - IBCS] < 0, 
+		[Max value]
+	)
+    MEASURE '.Measures'[Green Max] = If(
+		[ΔSales YA - IBCS] > 0, 
+		[Max value]
+	)
+    MEASURE '.Measures'[Delta Color] = IF(
+		[ΔSales YA - IBCS] < 0,  
+		"#ff0000",
+		"#14ABD1"
+	)
+    MEASURE '.Measures'[ΔSales YA - IBCS %] = DIVIDE ([ΔSales YA - IBCS], [Sales YA - IBCS])
