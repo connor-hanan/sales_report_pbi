@@ -1,38 +1,38 @@
 {
-  "name": "Sunflower Twilight",
+  "name": "Accessible Orchid",
   "dataColors": [
-    "#F17925",
-    "#004753",
-    "#CCAA14",
-    "#4B4C4E",
-    "#D82C20",
-    "#A3D0D4",
-    "#536F18",
-    "#46ABB0",
-    "#F49451",
-    "#336C75",
-    "#D6BB43",
-    "#6F7071",
-    "#E0564D",
-    "#B5D9DD",
-    "#758C46",
-    "#6BBCC0",
-    "#B55B1C",
-    "#00353E",
-    "#99800F",
-    "#38393B",
-    "#A22118",
-    "#7A9C9F",
-    "#3E5312",
-    "#358084",
-    "#793D13",
-    "#00242A",
-    "#66550A",
-    "#262627",
-    "#6C1610",
-    "#52686A",
-    "#2A380C",
-    "#235658",
+    "#364B59",
+    "#C480A7",
+    "#663466",
+    "#6E98B5",
+    "#67002E",
+    "#5D8099",
+    "#3F213F",
+    "#EC64A9",
+    "#3599B8",
+    "#DFBFBF",
+    "#4AC5BB",
+    "#5F6B6D",
+    "#FB8281",
+    "#F4D25A",
+    "#7F898A",
+    "#A4DDEE",
+    "#FDAB89",
+    "#B687AC",
+    "#28738A",
+    "#A78F8F",
+    "#168980",
+    "#293537",
+    "#BB4A4A",
+    "#B59525",
+    "#475052",
+    "#6A9FB0",
+    "#BD7150",
+    "#7B4F71",
+    "#1B4D5C",
+    "#706060",
+    "#0F5C55",
+    "#1C2325",
     "#7D3231",
     "#796419",
     "#303637",
@@ -482,21 +482,22 @@
     "#0D2E25",
     "#54484E"
   ],
+  "foreground": "#192229",
   "background": "#FFFFFF",
-  "foreground": "#1B1B1B",
-  "tableAccent": "#0F1934",
+  "foregroundNeutralSecondary": "#716E76",
+  "backgroundLight": "#EBE8FA",
+  "foregroundNeutralTertiary": "#96939E",
+  "backgroundNeutral": "#DAD8E8",
+  "tableAccent": "#BD3978",
+  "maximum": "#3F213F",
+  "center": "#663466",
+  "minimum": "#6E98B5",
+  "bad": "#BD3978",
+  "neutral": "#C480A7",
+  "good": "#14ABD1",
   "visualStyles": {
     "*": {
       "*": {
-        "visualHeader": [
-          {
-            "background": {
-              "solid": {
-                "color": "#F1F1F1"
-              }
-            }
-          }
-        ],
         "background": [
           {
             "color": {
@@ -514,33 +515,13 @@
           {
             "color": {
               "solid": {
-                "color": "#E6E6E6"
+                "color": "#FFFFFF"
               }
             },
-            "transparency": 0
-          }
-        ],
-        "outspace": [
-          {
             "transparency": 100
           }
         ]
       }
     }
-  },
-  "textClasses": {
-    "label": {
-      "fontFace": "'Lucida Sans Unicode'",
-      "fontSize": 12
-    },
-    "callout": {
-      "fontFace": "'Lucida Sans Unicode'"
-    },
-    "title": {
-      "fontFace": "'Segoe UI Semibold', wf_segoe-ui_semibold, helvetica, arial, sans-serif",
-      "fontSize": 14,
-      "color": "#FFFFFF"
-    }
-  },
-  "backgroundLight": "#C6C6C6"
+  }
 }

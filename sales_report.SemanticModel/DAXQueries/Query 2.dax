@@ -1,0 +1,18 @@
+DEFINE	
+	MEASURE '.Measures'[%Cost Δ - Brand Parameter] = CALCULATE(
+        [Total Sales YA],
+        KEEPFILTERS(
+            WINDOW(
+                1,ABS,
+                [Products Parameter Value],ABS,
+                ADDCOLUMNS(
+                    SUMMARIZE(
+                        ALLSELECTED('Products'),
+                        'Products'[Product Name]
+                    ),
+                    "Top Products", [Total Sales YA]
+                ),
+                ORDERBY([Top Products], DESC)
+            )
+        )
+    )

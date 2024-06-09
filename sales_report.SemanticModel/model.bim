@@ -4,7 +4,7 @@
     "annotations": [
       {
         "name": "PBI_QueryOrder",
-        "value": "[\"Customers\",\"Dates\",\"Location\",\"Products\",\"Sales\",\"Sales People\",\".Measures\",\"Client Profitability\",\"Date Periods\",\"Outlier Parameters\"]"
+        "value": "[\"Customers\",\"Dates\",\"Location\",\"Products\",\"Sales\",\"Sales People\",\".Measures\",\"Client Profitability\",\"Date Periods\",\"Outlier Parameters\",\"Metric Table\"]"
       },
       {
         "name": "__PBI_TimeIntelligenceEnabled",
@@ -82,6 +82,20 @@
         "fromTable": "Date Periods",
         "toColumn": "Index",
         "toTable": "Client Profitability"
+      },
+      {
+        "name": "065adf30-af85-6698-db70-0ec0032ea2a5",
+        "fromColumn": "Category",
+        "fromTable": "Parameter",
+        "toColumn": "Metric",
+        "toTable": "Metric Table"
+      },
+      {
+        "name": "0be54742-261c-cf95-f8f9-c58d4043e4f4",
+        "fromColumn": "Category",
+        "fromTable": "Metric Parameter",
+        "toColumn": "Metric",
+        "toTable": "Metric Table"
       }
     ],
     "sourceQueryCulture": "en-US",
@@ -160,6 +174,32 @@
             "lineageTag": "c5d73c02-717d-4544-9dcb-4bdf79cf9122",
             "summarizeBy": "none",
             "type": "calculated"
+          },
+          {
+            "name": "Profit Group Index",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "expression": [
+              "VAR _ProfitGroup = 'Customers'[Profit Groups] // This column will be used mainly to order the proift groups the way I want in visuals and slicers",
+              "RETURN",
+              "    SWITCH(",
+              "        _ProfitGroup,",
+              "        \"Top Clients\", 1,",
+              "        \"Good Clients\", 2,",
+              "        \"Average Clients\", 3,",
+              "        \"Poor Clients\", 4",
+              "    )"
+            ],
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "lineageTag": "e44c3772-fbd0-4d12-9c6c-c8d38e305d64",
+            "summarizeBy": "none",
+            "type": "calculated"
           }
         ],
         "lineageTag": "f4213e9d-1bf4-400e-ba33-bbe883443014",
@@ -170,7 +210,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\conno\\AppData\\Local\\Programs\\projects\\project\\Anomaly Detection - Resource Pack.xlsx\"), null, true),",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\conno\\workspace\\projects\\sales_report_pbi\\resources\\sales_data.xlsx\"), null, true),",
                 "    Customers_Sheet = Source{[Item=\"Customers\",Kind=\"Sheet\"]}[Data],",
                 "    #\"Changed Type\" = Table.TransformColumnTypes(Customers_Sheet,{{\"Column1\", type text}, {\"Column2\", type text}}),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Changed Type\", [PromoteAllScalars=true]),",
@@ -189,6 +229,10 @@
           {
             "name": "PBI_ResultType",
             "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
           }
         ],
         "columns": [
@@ -305,7 +349,6 @@
               }
             ],
             "dataType": "string",
-            "isHidden": true,
             "lineageTag": "77b412db-884c-4f5c-9116-70903899e141",
             "sourceColumn": "MonthName",
             "summarizeBy": "none"
@@ -527,6 +570,19 @@
             "lineageTag": "1b57bcf3-338b-4344-8468-35922cbb6aa8",
             "summarizeBy": "none",
             "type": "calculated"
+          },
+          {
+            "name": "Quarter",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "a8f23d72-6877-41b2-85d2-9d0b25a34c37",
+            "sourceColumn": "Quarter",
+            "summarizeBy": "none"
           }
         ],
         "dataCategory": "Time",
@@ -538,12 +594,17 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\conno\\AppData\\Local\\Programs\\projects\\project\\Anomaly Detection - Resource Pack.xlsx\"), null, true),",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\conno\\workspace\\projects\\sales_report_pbi\\resources\\sales_data.xlsx\"), null, true),",
                 "    Dates_Sheet = Source{[Item=\"Dates\",Kind=\"Sheet\"]}[Data],",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Dates_Sheet, [PromoteAllScalars=true]),",
-                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Date\", type date}, {\"Year\", Int64.Type}, {\"QuarterOfYear\", Int64.Type}, {\"MonthOfYear\", Int64.Type}, {\"DayOfMonth\", Int64.Type}, {\"DateInt\", Int64.Type}, {\"MonthName\", type text}, {\"Month & Year\", type date}, {\"Quarter & Year\", type text}, {\"DayInWeek\", Int64.Type}, {\"Day of Week\", type text}, {\"WeekEnding\", type date}, {\"Week Number\", Int64.Type}, {\"MonthnYear\", Int64.Type}, {\"QuarternYear\", Int64.Type}, {\"ShortYear\", Int64.Type}, {\"FY\", type text}, {\"Year & Week\", type text}, {\"YearWeekSort\", Int64.Type}})",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Date\", type date}, {\"Year\", Int64.Type}, {\"QuarterOfYear\", Int64.Type}, {\"MonthOfYear\", Int64.Type}, {\"DayOfMonth\", Int64.Type}, {\"DateInt\", Int64.Type}, {\"MonthName\", type text}, {\"Month & Year\", type date}, {\"Quarter & Year\", type text}, {\"DayInWeek\", Int64.Type}, {\"Day of Week\", type text}, {\"WeekEnding\", type date}, {\"Week Number\", Int64.Type}, {\"MonthnYear\", Int64.Type}, {\"QuarternYear\", Int64.Type}, {\"ShortYear\", Int64.Type}, {\"FY\", type text}, {\"Year & Week\", type text}, {\"YearWeekSort\", Int64.Type}}),",
+                "    Created_Quarter_Column = Table.AddColumn(",
+                "        #\"Changed Type\",",
+                "        \"Quarter\",",
+                "        each Text.BeforeDelimiter([#\"Quarter & Year\"], \" \"), type text",
+                "    )",
                 "in",
-                "    #\"Changed Type\""
+                "    Created_Quarter_Column"
               ],
               "type": "m"
             }
@@ -556,6 +617,10 @@
           {
             "name": "PBI_ResultType",
             "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
           }
         ],
         "columns": [
@@ -794,7 +859,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\conno\\AppData\\Local\\Programs\\projects\\project\\Anomaly Detection - Resource Pack.xlsx\"), null, true),",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\conno\\workspace\\projects\\sales_report_pbi\\resources\\sales_data.xlsx\"), null, true),",
                 "    Location_Sheet = Source{[Item=\"Location\",Kind=\"Sheet\"]}[Data],",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Location_Sheet, [PromoteAllScalars=true]),",
                 "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Location ID\", type text}, {\"Name\", type text}, {\"County\", type text}, {\"State Code\", type text}, {\"State\", type text}, {\"Type\", type text}, {\"Latitude\", type number}, {\"Longitude\", type number}, {\"Area Code\", Int64.Type}, {\"Population\", Int64.Type}, {\"Households\", Int64.Type}, {\"Median Income\", Int64.Type}, {\"Land Area\", Int64.Type}, {\"Water Area\", Int64.Type}, {\"Time Zone\", type text}})",
@@ -812,6 +877,10 @@
           {
             "name": "PBI_ResultType",
             "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
           }
         ],
         "columns": [
@@ -955,7 +1024,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\conno\\AppData\\Local\\Programs\\projects\\project\\Anomaly Detection - Resource Pack.xlsx\"), null, true),",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\conno\\workspace\\projects\\sales_report_pbi\\resources\\sales_data.xlsx\"), null, true),",
                 "    Products_Sheet = Source{[Item=\"Products\",Kind=\"Sheet\"]}[Data],",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Products_Sheet, [PromoteAllScalars=true]),",
                 "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Product ID\", type text}, {\"Product Name\", type text}, {\"Cost\", Int64.Type}, {\"Original Sale Price\", Int64.Type}, {\"Discount Code\", type text}, {\"Discount\", Int64.Type}, {\"Current Price\", Int64.Type}, {\"Taxes\", type number}})",
@@ -973,6 +1042,10 @@
           {
             "name": "PBI_ResultType",
             "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
           }
         ],
         "columns": [
@@ -1110,12 +1183,18 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\conno\\AppData\\Local\\Programs\\projects\\project\\Anomaly Detection - Resource Pack.xlsx\"), null, true),",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\conno\\workspace\\projects\\sales_report_pbi\\resources\\sales_data.xlsx\"), null, true),",
                 "    Sales_Sheet = Source{[Item=\"Sales\",Kind=\"Sheet\"]}[Data],",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(Sales_Sheet, [PromoteAllScalars=true]),",
-                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Order ID\", type text}, {\"Product ID\", type text}, {\"Location ID\", type text}, {\"Sales Person ID\", type text}, {\"Customer ID\", type text}, {\"Purchase Date\", type date}, {\"Quantity\", Int64.Type}})",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Order ID\", type text}, {\"Product ID\", type text}, {\"Location ID\", type text}, {\"Sales Person ID\", type text}, {\"Customer ID\", type text}, {\"Purchase Date\", type date}, {\"Quantity\", Int64.Type}}),",
+                "    MaxDate = List.Max(Dates[Date]),",
+                "    // There are 4 more dates than my date table alows so I'm filtering the sales table by the max date of the refrenced table",
+                "    FinalTable = Table.SelectRows(",
+                "        #\"Changed Type\",",
+                "        each [Purchase Date] <= MaxDate",
+                "    )",
                 "in",
-                "    #\"Changed Type\""
+                "    FinalTable"
               ],
               "type": "m"
             }
@@ -1176,7 +1255,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\conno\\AppData\\Local\\Programs\\projects\\project\\Anomaly Detection - Resource Pack.xlsx\"), null, true),",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\conno\\workspace\\projects\\sales_report_pbi\\resources\\sales_data.xlsx\"), null, true),",
                 "    #\"Sales People_Sheet\" = Source{[Item=\"Sales People\",Kind=\"Sheet\"]}[Data],",
                 "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Sales People_Sheet\",{{\"Column1\", type text}, {\"Column2\", type text}}),",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Changed Type\", [PromoteAllScalars=true]),",
@@ -1273,6 +1352,7 @@
                 "value": "{\"currencyCulture\":\"en-US\"}"
               }
             ],
+            "displayFolder": "Base Measires",
             "expression": "SUMX(Sales, Sales[Quantity] * RELATED(Products[Cost]) )",
             "formatString": "\\$#,0;(\\$#,0);\\$#,0",
             "lineageTag": "e60b7452-997a-441e-9835-6b5646299b46"
@@ -1285,48 +1365,17 @@
                 "value": "{\"currencyCulture\":\"en-US\"}"
               }
             ],
+            "displayFolder": "Base Measires",
             "expression": "[Total Sales] - [Total Cost]",
             "formatString": "\\$#,0;(\\$#,0);\\$#,0",
             "lineageTag": "cb0778c9-d5d0-4d0f-8af9-3d2962b07e06"
           },
           {
             "name": "Total Profit Margin",
+            "displayFolder": "Base Measires",
             "expression": "DIVIDE([Total Profit], [Total Sales], 0)",
             "formatString": "#,0.00%;-#,0.00%;#,0.00%",
             "lineageTag": "2ff80cd5-5374-4495-b517-56992817f03f"
-          },
-          {
-            "name": "Sales YA",
-            "expression": "CALCULATE( [Total Sales], DATEADD(Dates[Date], -1, YEAR))",
-            "formatString": "0",
-            "lineageTag": "fb4076e2-1e08-47d7-9cbe-f889d8223214"
-          },
-          {
-            "name": "Sales",
-            "annotations": [
-              {
-                "name": "PBI_FormatHint",
-                "value": "{\"currencyCulture\":\"en-US\"}"
-              }
-            ],
-            "expression": [
-              "VAR _DatePeriod = SELECTEDVALUE('Date Periods'[Periods])",
-              "VAR _DateFilter =",
-              "    SWITCH(",
-              "        _DatePeriod,",
-              "        VALUES('Date Periods'[Periods]), VALUES('Date Periods'[Starting Day])",
-              "    )",
-              "RETURN",
-              "    CALCULATE(",
-              "        [Total Sales],",
-              "        FILTER(",
-              "            Dates, ",
-              "            Dates[Date] >=_DateFilter",
-              "        )",
-              "    )"
-            ],
-            "formatString": "\\$#,0;(\\$#,0);\\$#,0",
-            "lineageTag": "b2f1e1b1-1a50-450a-9972-f2979b97910f"
           },
           {
             "name": "Total Sales",
@@ -1336,71 +1385,28 @@
                 "value": "{\"currencyCulture\":\"en-US\"}"
               }
             ],
+            "displayFolder": "Base Measires",
             "expression": "SUMX(Sales, Sales[Quantity] * RELATED(Products[Current Price]) )",
             "formatString": "\\$#,0;(\\$#,0);\\$#,0",
             "lineageTag": "9238440c-594b-4595-a000-41e8d04afbf3"
           },
           {
-            "name": "Cost",
+            "name": "Top 20% Cust Sales",
             "annotations": [
               {
                 "name": "PBI_FormatHint",
                 "value": "{\"currencyCulture\":\"en-US\"}"
               }
             ],
-            "expression": [
-              "VAR _DatePeriod = SELECTEDVALUE('Date Periods'[Periods])",
-              "VAR _DateFilter=",
-              "    SWITCH(",
-              "        _DatePeriod,",
-              "        VALUES('Date Periods'[Periods]) ,VALUES('Date Periods'[Starting Day])",
-              "    )",
-              "RETURN",
-              "    CALCULATE(",
-              "        [Total Cost],",
-              "        FILTER(",
-              "            Dates,",
-              "            Dates[Date] >= _DateFilter",
-              "        )",
-              "    )"
-            ],
-            "formatString": "\\$#,0;(\\$#,0);\\$#,0",
-            "lineageTag": "6f33c86c-66aa-43a8-b642-806d078960be"
-          },
-          {
-            "name": "Profit",
-            "annotations": [
-              {
-                "name": "PBI_FormatHint",
-                "value": "{\"currencyCulture\":\"en-US\"}"
-              }
-            ],
-            "expression": "[Sales] - [Cost]",
-            "formatString": "\\$#,0;(\\$#,0);\\$#,0",
-            "lineageTag": "cc433439-e0d8-4766-9365-01be7c0d261a"
-          },
-          {
-            "name": "Proft Margin",
-            "expression": "DIVIDE([Profit], [Cost],0)",
-            "formatString": "0.00%;-0.00%;0.00%",
-            "lineageTag": "de222c74-b3f3-4997-9e41-7e02987f52b6"
-          },
-          {
-            "name": "Sales of top 20% of Customers",
-            "annotations": [
-              {
-                "name": "PBI_FormatHint",
-                "value": "{\"currencyCulture\":\"en-US\"}"
-              }
-            ],
+            "displayFolder": "Key Measures",
             "expression": [
               "VAR _CustomerPercent = DISTINCTCOUNT(Sales[Customer ID]) * 0.2",
               "RETURN",
               "    CALCULATE(",
-              "        [Sales],",
+              "        [Total Sales],",
               "        FILTER(",
               "            VALUES(Sales[Customer ID]),",
-              "            RANKX(VALUES(Sales[Customer ID]), [Sales],,DESC) <= _CustomerPercent",
+              "            RANKX(VALUES(Sales[Customer ID]), [Total Sales],,DESC) <= _CustomerPercent",
               "        )",
               "    )"
             ],
@@ -1408,8 +1414,9 @@
             "lineageTag": "d64b220b-3564-474c-aa2b-84fe603cf9f4"
           },
           {
-            "name": "% of Sales",
-            "expression": "DIVIDE([Sales of top 20% of Customers], [Total Sales], 0)",
+            "name": "%Share Total Sales",
+            "displayFolder": "Key Measures",
+            "expression": "DIVIDE([Top 20% Cust Sales], [Total Sales], 0)",
             "formatString": "0.00%;-0.00%;0.00%",
             "lineageTag": "35aafef7-3c57-4cec-9266-ed91f7ecbb7a"
           },
@@ -1421,11 +1428,12 @@
                 "value": "{\"currencyCulture\":\"en-US\"}"
               }
             ],
+            "displayFolder": "Key Measures",
             "expression": [
               "VAR _CustomerNames = VALUES(Customers[Customer Name])",
               "RETURN",
               "CALCULATE(",
-              "    [Profit],",
+              "    [Total Profit],",
               "    FILTER(_CustomerNames,",
               "        COUNTROWS(",
               "            FILTER(",
@@ -1439,6 +1447,520 @@
             ],
             "formatString": "\\$#,0;(\\$#,0);\\$#,0",
             "lineageTag": "34de6e07-6da6-4e82-8d41-afecfa647ac5"
+          },
+          {
+            "name": "Customer Count",
+            "displayFolder": "Key Measures",
+            "expression": "DISTINCTCOUNT('Customers'[Customer Name])",
+            "formatString": "0",
+            "lineageTag": "92ff098a-5b12-4d82-9435-2fa2334b6c66"
+          },
+          {
+            "name": "Profit Groups (Plot Order Index)",
+            "displayFolder": "Formatting Measures",
+            "expression": "VALUES('Customers'[Profit Group Index])",
+            "formatString": "0",
+            "lineageTag": "bdb0c799-8845-4f72-9e86-1328eea11b3f"
+          },
+          {
+            "name": "Total Sales YA",
+            "displayFolder": "Base Measires",
+            "expression": "CALCULATE([Total Sales], SAMEPERIODLASTYEAR('Dates'[Date]) )",
+            "formatString": "\\$#,0.00;(\\$#,0.00);\\$#,0.00",
+            "lineageTag": "7dc8c95d-083a-458f-bf94-e34b65ed08e1"
+          },
+          {
+            "name": "%Sales Δ",
+            "displayFolder": "Key Measures",
+            "expression": "DIVIDE([Total Sales] - [Total Sales YA], [Total Sales YA])",
+            "formatString": "0.00%;-0.00%;0.00%",
+            "lineageTag": "227b6648-fb59-4c49-ad81-743ac7137318"
+          },
+          {
+            "name": "Cummulative Sales",
+            "displayFolder": "Key Measures",
+            "expression": [
+              "CALCULATE( ",
+              "\t[Sales - Brand Parameter], ",
+              "\tFILTER(",
+              "\t\tALL(Dates[Date]),",
+              "\t\tDates[Date] <= MAX(Dates[Date])",
+              "\t)",
+              ")"
+            ],
+            "formatString": "0",
+            "lineageTag": "fd9857e8-4a74-49e7-ae7a-a6b84bab0496"
+          },
+          {
+            "name": "Cummulative Cost",
+            "displayFolder": "Key Measures",
+            "expression": [
+              "CALCULATE(",
+              "    [Cost - Brand Parameter],",
+              "    FILTER(",
+              "        ALL(Dates[Date]),",
+              "        Dates[Date] <= MAX(Dates[Date])",
+              "    )",
+              ")"
+            ],
+            "formatString": "0",
+            "lineageTag": "748fca41-55cc-4f78-9b96-dfe1b2136ef3"
+          },
+          {
+            "name": "Total Cost YA",
+            "displayFolder": "Base Measires",
+            "expression": "CALCULATE([Total Cost], SAMEPERIODLASTYEAR(Dates[Date]) )",
+            "formatString": "\\$#,0;(\\$#,0);\\$#,0",
+            "lineageTag": "1d30a2b4-26f0-4e45-8330-f2c9c2036af3"
+          },
+          {
+            "name": "Total Profit YA",
+            "displayFolder": "Base Measires",
+            "expression": "CALCULATE([Total Profit], SAMEPERIODLASTYEAR(Dates[Date]) )",
+            "formatString": "\\$#,0;(\\$#,0);\\$#,0",
+            "lineageTag": "1843b366-59a1-445d-9502-c2fa65ef9c1e"
+          },
+          {
+            "name": "%Cost Δ",
+            "displayFolder": "Key Measures",
+            "expression": "DIVIDE([Total Cost] - [Total Cost YA], [Total Cost YA])",
+            "formatString": "0.00%;-0.00%;0.00%",
+            "lineageTag": "352ce6de-37be-46ef-b420-bcca46e8b0c2"
+          },
+          {
+            "name": "%Profit Δ",
+            "displayFolder": "Key Measures",
+            "expression": "DIVIDE([Total Profit] - [Total Profit YA], [Total Profit YA])",
+            "formatString": "0.00%;-0.00%;0.00%",
+            "lineageTag": "f9aa612c-4c82-40a9-9bcb-f92577cdfaf8"
+          },
+          {
+            "name": "%Share Top Cust YA",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "displayFolder": "Key Measures",
+            "expression": "DIVIDE([Top 20% Cust Sales], [Total Sales], 0)",
+            "lineageTag": "07dcc523-9c07-4ffd-9326-a8fba68f17b8"
+          },
+          {
+            "name": "Profit - Brand Parameter",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"en-US\"}"
+              }
+            ],
+            "description": "Returns value with the brand parameter applied",
+            "displayFolder": "Key Measures\\.Brand Parameter",
+            "expression": [
+              "CALCULATE(",
+              "        [Total Profit],",
+              "        KEEPFILTERS(",
+              "            WINDOW(",
+              "                1,ABS,",
+              "                [Products Parameter Value],ABS,",
+              "                ADDCOLUMNS(",
+              "                    SUMMARIZE(",
+              "                        ALLSELECTED('Products'),",
+              "                        'Products'[Product Name]",
+              "                    ),",
+              "                    \"Top Products\", [Total Sales]",
+              "                ),",
+              "                ORDERBY([Top Products], DESC)",
+              "            )",
+              "        )",
+              "    )"
+            ],
+            "formatString": "\\$#,0;(\\$#,0);\\$#,0",
+            "lineageTag": "ebd55a67-9520-4c09-82a2-1a7a0b74673b"
+          },
+          {
+            "name": "Profit YA - Brand Parameter",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"en-US\"}"
+              }
+            ],
+            "description": "Returns value with the brand parameter applied",
+            "displayFolder": "Key Measures\\.Brand Parameter",
+            "expression": [
+              "CALCULATE(",
+              "        [Total Profit YA],",
+              "        KEEPFILTERS(",
+              "            WINDOW(",
+              "                1,ABS,",
+              "                [Products Parameter Value],ABS,",
+              "                ADDCOLUMNS(",
+              "                    SUMMARIZE(",
+              "                        ALLSELECTED('Products'),",
+              "                        'Products'[Product Name]",
+              "                    ),",
+              "                    \"Top Products\", [Total Sales]",
+              "                ),",
+              "                ORDERBY([Top Products], DESC)",
+              "            )",
+              "        )",
+              "    )"
+            ],
+            "formatString": "\\$#,0;(\\$#,0);\\$#,0",
+            "lineageTag": "fce66972-9071-4406-8769-4daa8b6ca2ae"
+          },
+          {
+            "name": "Cost - Brand Parameter",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"en-US\"}"
+              }
+            ],
+            "description": "Returns value with the brand parameter applied",
+            "displayFolder": "Key Measures\\.Brand Parameter",
+            "expression": [
+              "CALCULATE(",
+              "        [Total Cost],",
+              "        KEEPFILTERS(",
+              "            WINDOW(",
+              "                1,ABS,",
+              "                [Products Parameter Value],ABS,",
+              "                ADDCOLUMNS(",
+              "                    SUMMARIZE(",
+              "                        ALLSELECTED('Products'),",
+              "                        'Products'[Product Name]",
+              "                    ),",
+              "                    \"Top Products\", [Total Sales]",
+              "                ),",
+              "                ORDERBY([Top Products], DESC)",
+              "            )",
+              "        )",
+              "    )"
+            ],
+            "formatString": "\\$#,0;(\\$#,0);\\$#,0",
+            "lineageTag": "32e67394-2c92-45da-b96e-2fd8d3b593e1"
+          },
+          {
+            "name": "Cost YA - Brand Parameter",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"en-US\"}"
+              }
+            ],
+            "description": "Returns value with the brand parameter applied",
+            "displayFolder": "Key Measures\\.Brand Parameter",
+            "expression": [
+              "CALCULATE(",
+              "        [Total Cost YA],",
+              "        KEEPFILTERS(",
+              "            WINDOW(",
+              "                1,ABS,",
+              "                [Products Parameter Value],ABS,",
+              "                ADDCOLUMNS(",
+              "                    SUMMARIZE(",
+              "                        ALLSELECTED('Products'),",
+              "                        'Products'[Product Name]",
+              "                    ),",
+              "                    \"Top Products\", [Total Sales]",
+              "                ),",
+              "                ORDERBY([Top Products], DESC)",
+              "            )",
+              "        )",
+              "    )"
+            ],
+            "formatString": "\\$#,0;(\\$#,0);\\$#,0",
+            "lineageTag": "2633f324-8a22-4f80-a475-f5dedae1cdac"
+          },
+          {
+            "name": "Sales - Brand Parameter",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"en-US\"}"
+              }
+            ],
+            "description": "Returns value with the brand parameter applied",
+            "displayFolder": "Key Measures\\.Brand Parameter",
+            "expression": [
+              "CALCULATE(",
+              "        [Total Sales],",
+              "        KEEPFILTERS(",
+              "            WINDOW(",
+              "                1,ABS,",
+              "                [Products Parameter Value],ABS,",
+              "                ADDCOLUMNS(",
+              "                    SUMMARIZE(",
+              "                        ALLSELECTED('Products'),",
+              "                        'Products'[Product Name]",
+              "                    ),",
+              "                    \"Top Products\", [Total Sales]",
+              "                ),",
+              "                ORDERBY([Top Products], DESC)",
+              "            )",
+              "        )",
+              "    )"
+            ],
+            "formatString": "\\$#,0;(\\$#,0);\\$#,0",
+            "lineageTag": "59dc69e3-4d0c-4ad1-a754-0841d2832559"
+          },
+          {
+            "name": "Sales YA - Brand Parameter",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"en-US\"}"
+              }
+            ],
+            "description": "Returns value with the brand parameter applied",
+            "displayFolder": "Key Measures\\.Brand Parameter",
+            "expression": [
+              "CALCULATE(",
+              "        [Total Sales YA],",
+              "        KEEPFILTERS(",
+              "            WINDOW(",
+              "                1,ABS,",
+              "                [Products Parameter Value],ABS,",
+              "                ADDCOLUMNS(",
+              "                    SUMMARIZE(",
+              "                        ALLSELECTED('Products'),",
+              "                        'Products'[Product Name]",
+              "                    ),",
+              "                    \"Top Products\", [Total Sales]",
+              "                ),",
+              "                ORDERBY([Top Products], DESC)",
+              "            )",
+              "        )",
+              "    )"
+            ],
+            "formatString": "\\$#,0;(\\$#,0);\\$#,0",
+            "lineageTag": "a811d41b-7093-4fc4-a5ec-6a6a543c873f"
+          },
+          {
+            "name": "Profit Margin - Brand Parameter",
+            "description": "Returns value with the brand parameter applied",
+            "displayFolder": "Key Measures\\.Brand Parameter",
+            "expression": [
+              "CALCULATE(",
+              "        [Total Profit Margin],",
+              "        KEEPFILTERS(",
+              "            WINDOW(",
+              "                1,ABS,",
+              "                [Products Parameter Value],ABS,",
+              "                ADDCOLUMNS(",
+              "                    SUMMARIZE(",
+              "                        ALLSELECTED('Products'),",
+              "                        'Products'[Product Name]",
+              "                    ),",
+              "                    \"Top Products\", [Total Sales]",
+              "                ),",
+              "                ORDERBY([Top Products], DESC)",
+              "            )",
+              "        )",
+              "    )"
+            ],
+            "formatString": "0.00%;-0.00%;0.00%",
+            "lineageTag": "4b34250c-fc92-42bc-a8bb-1ff40fcfa4ee"
+          },
+          {
+            "name": "%Cost Δ - Brand Parameter",
+            "description": "Returns value with the brand parameter applied",
+            "displayFolder": "Key Measures\\.Brand Parameter",
+            "expression": [
+              "CALCULATE(",
+              "    DIVIDE([Total Cost] - [Total Cost YA], [Total Cost YA]),",
+              "    KEEPFILTERS(",
+              "            WINDOW(",
+              "                1,ABS,",
+              "                [Products Parameter Value],ABS,",
+              "                ADDCOLUMNS(",
+              "                    SUMMARIZE(",
+              "                        ALLSELECTED('Products'),",
+              "                        'Products'[Product Name]",
+              "                    ),",
+              "                    \"Top Products\", [Total Sales]",
+              "                ),",
+              "                ORDERBY([Top Products], DESC)",
+              "            )",
+              "        )",
+              "    )"
+            ],
+            "formatString": "0.00%;-0.00%;0.00%",
+            "lineageTag": "4bda12fd-828f-43de-a04d-ad39baa870d1"
+          },
+          {
+            "name": "%Sales Δ - Brand Parameter",
+            "description": "Returns value with the brand parameter applied",
+            "displayFolder": "Key Measures\\.Brand Parameter",
+            "expression": [
+              "CALCULATE(",
+              "    DIVIDE([Total Sales] - [Total Sales YA], [Total Sales YA]),",
+              "    KEEPFILTERS(",
+              "            WINDOW(",
+              "                1,ABS,",
+              "                [Products Parameter Value],ABS,",
+              "                ADDCOLUMNS(",
+              "                    SUMMARIZE(",
+              "                        ALLSELECTED('Products'),",
+              "                        'Products'[Product Name]",
+              "                    ),",
+              "                    \"Top Products\", [Total Sales]",
+              "                ),",
+              "                ORDERBY([Top Products], DESC)",
+              "            )",
+              "        )",
+              "    )"
+            ],
+            "formatString": "0.00%;-0.00%;0.00%",
+            "lineageTag": "8e345f8c-8ea9-49d4-81dc-8db94ae76374"
+          },
+          {
+            "name": "%Profit Δ - Brand Parameter",
+            "description": "Returns value with the brand parameter applied",
+            "displayFolder": "Key Measures\\.Brand Parameter",
+            "expression": [
+              "CALCULATE(",
+              "    DIVIDE([Total Profit] - [Total Profit YA], [Total Profit YA]),",
+              "    KEEPFILTERS(",
+              "            WINDOW(",
+              "                1,ABS,",
+              "                [Products Parameter Value],ABS,",
+              "                ADDCOLUMNS(",
+              "                    SUMMARIZE(",
+              "                        ALLSELECTED('Products'),",
+              "                        'Products'[Product Name]",
+              "                    ),",
+              "                    \"Top Products\", [Total Sales]",
+              "                ),",
+              "                ORDERBY([Top Products], DESC)",
+              "            )",
+              "        )",
+              "    )"
+            ],
+            "formatString": "0.00%;-0.00%;0.00%",
+            "lineageTag": "649da741-364f-4fcc-93ae-b4b438d20511"
+          },
+          {
+            "name": "Max value",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"en-US\"}"
+              }
+            ],
+            "displayFolder": "Key Measures\\.IBCS",
+            "expression": [
+              "IF(",
+              "\t\t[Sales - IBCS]>[Sales YA - IBCS], ",
+              "\t\t[Sales - IBCS], ",
+              "\t\t[Sales YA - IBCS]",
+              "\t)"
+            ],
+            "formatString": "\\$#,0;(\\$#,0);\\$#,0",
+            "lineageTag": "20ea8022-eaa7-4402-a177-466e74f67925"
+          },
+          {
+            "name": "Red Max",
+            "displayFolder": "Key Measures\\.IBCS",
+            "expression": [
+              "If(",
+              "\t\t[Sales Δ - IBCS] < 0, ",
+              "\t\t[Max value]",
+              "\t)"
+            ],
+            "lineageTag": "6869fd1f-2240-4c3a-90a9-8923f02b2189"
+          },
+          {
+            "name": "Green Max",
+            "displayFolder": "Key Measures\\.IBCS",
+            "expression": [
+              "If(",
+              "\t\t[Sales Δ - IBCS] > 0, ",
+              "\t\t[Max value]",
+              "\t)"
+            ],
+            "lineageTag": "ff9a7509-b730-4059-952b-30e0d6fe8156"
+          },
+          {
+            "name": "Sales - IBCS",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"en-US\"}"
+              }
+            ],
+            "displayFolder": "Key Measures\\.IBCS",
+            "expression": "[Sales - Brand Parameter]",
+            "formatString": "\\$#,0;(\\$#,0);\\$#,0",
+            "lineageTag": "bfe0b1fe-df0d-4479-9213-da4683e70149"
+          },
+          {
+            "name": "Sales YA - IBCS",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"en-US\"}"
+              }
+            ],
+            "displayFolder": "Key Measures\\.IBCS",
+            "expression": "[Sales YA - Brand Parameter]",
+            "formatString": "\\$#,0;(\\$#,0);\\$#,0",
+            "lineageTag": "8182cbba-c2b8-477a-a8c5-9afb82676671"
+          },
+          {
+            "name": "%Sales Δ - IBCS",
+            "displayFolder": "Key Measures\\.IBCS",
+            "expression": "DIVIDE ([Sales Δ - IBCS], [Sales YA - IBCS])",
+            "formatString": "0%;-0%;0%",
+            "lineageTag": "4a73bbf6-78a5-4986-8798-3e39e3dedb98"
+          },
+          {
+            "name": "Delta Color",
+            "displayFolder": "Key Measures\\.IBCS",
+            "expression": [
+              "IF(",
+              "\t\t[Sales Δ - IBCS] < 0,  ",
+              "\t\t\"#BD3978\",",
+              "\t\t\"#14ABD1\"",
+              "\t)"
+            ],
+            "lineageTag": "ae8cb17a-c01e-409c-91dd-e409c8d6cef5"
+          },
+          {
+            "name": "Sales Δ - IBCS",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"en-US\"}"
+              }
+            ],
+            "displayFolder": "Key Measures\\.IBCS",
+            "expression": "[Sales - IBCS] - [Sales YA - IBCS]",
+            "formatString": "\\$#,0;(\\$#,0);\\$#,0",
+            "lineageTag": "bf174a00-f510-45b8-835a-1cb5f4f87de2"
+          },
+          {
+            "name": "Cummulative Profit",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"en-US\"}"
+              }
+            ],
+            "displayFolder": "Key Measures",
+            "expression": [
+              "CALCULATE( ",
+              "\t[Profit - Brand Parameter], ",
+              "\tFILTER(",
+              "\t\tALL(Dates[Date]),",
+              "\t\tDates[Date] <= MAX(Dates[Date])",
+              "\t)",
+              ")"
+            ],
+            "formatString": "\\$#,0;(\\$#,0);\\$#,0",
+            "lineageTag": "30990fc8-c33d-4eff-b02b-d5f71d17036e"
           }
         ],
         "partitions": [
@@ -1757,6 +2279,350 @@
                 "let",
                 "    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i45W8i8tyclMLVLSUTI2VQWShgYGIErF1FTHwMAAzDIwADNjdaKV/PLzdBE6wCoh2lQMkDTFxgIA\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Grouping = _t, #\"Profit Margin Min\" = _t, #\"Profit Margin Max\" = _t, #\"Sales Min\" = _t, #\"Sales Max\" = _t]),",
                 "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Profit Margin Min\", Percentage.Type}, {\"Profit Margin Max\", Percentage.Type}, {\"Sales Min\", Int64.Type}, {\"Sales Max\", Int64.Type}})",
+                "in",
+                "    #\"Changed Type\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Products Parameter",
+        "annotations": [
+          {
+            "name": "PBI_Id",
+            "value": "4b03787238654c1cad36468e0b6c7065"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Products Parameter",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              }
+            ],
+            "dataType": "int64",
+            "extendedProperties": [
+              {
+                "name": "ParameterMetadata",
+                "type": "json",
+                "value": {
+                  "version": 0
+                }
+              }
+            ],
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "isNameInferred": false,
+            "lineageTag": "577e6d0b-c086-40f7-9284-0824e0471134",
+            "sourceColumn": "[Value]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          }
+        ],
+        "lineageTag": "4e517807-9e29-4dc4-acaf-3d7a367a8029",
+        "measures": [
+          {
+            "name": "Products Parameter Value",
+            "expression": "SELECTEDVALUE('Products Parameter'[Products Parameter], 10)",
+            "formatString": "0",
+            "lineageTag": "d62197fc-9a6f-48ae-8ca3-4e9b9cf3a0b2"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Products Parameter",
+            "mode": "import",
+            "source": {
+              "expression": "GENERATESERIES(0, 90, 1)",
+              "type": "calculated"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Metric Parameter",
+        "annotations": [
+          {
+            "name": "PBI_Id",
+            "value": "456cd7c5792142bcbb8fb8058c6be2a7"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Metric Parameter",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "isNameInferred": false,
+            "lineageTag": "4ebebc98-aefb-42cf-bb50-db1a551ca35a",
+            "relatedColumnDetails": {
+              "groupByColumns": [
+                {
+                  "groupingColumn": "Metric Parameter Fields"
+                }
+              ]
+            },
+            "sortByColumn": "Metric Parameter Order",
+            "sourceColumn": "[Value1]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Metric Parameter Fields",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "extendedProperties": [
+              {
+                "name": "ParameterMetadata",
+                "type": "json",
+                "value": {
+                  "kind": 2,
+                  "version": 3
+                }
+              }
+            ],
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "isNameInferred": false,
+            "lineageTag": "fc91f521-0c32-4204-82b4-46af704f3a69",
+            "sortByColumn": "Metric Parameter Order",
+            "sourceColumn": "[Value2]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Metric Parameter Order",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "isNameInferred": false,
+            "lineageTag": "11304381-421c-40b9-831d-bb7f2f0f3fc8",
+            "sourceColumn": "[Value3]",
+            "summarizeBy": "sum",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Category",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "expression": [
+              "SWITCH(",
+              "    TRUE(),",
+              "    CONTAINSSTRING('Metric Parameter'[Metric Parameter], \"Cost\"), \"Cost\",",
+              "    CONTAINSSTRING('Metric Parameter'[Metric Parameter], \"Sales\"), \"Sales\",",
+              "    CONTAINSSTRING('Metric Parameter'[Metric Parameter], \"Profit\"), \"Profit\"",
+              ")"
+            ],
+            "isDataTypeInferred": true,
+            "lineageTag": "bc818f61-0f28-4774-ab5a-852f98d88fb9",
+            "summarizeBy": "none",
+            "type": "calculated"
+          }
+        ],
+        "lineageTag": "76d01ca5-ac07-4694-886e-226fca5a4ed6",
+        "partitions": [
+          {
+            "name": "Metric Parameter",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "// Used in Customers report ",
+                "{",
+                "    (\"%Cost Δ\", NAMEOF('.Measures'[%Cost Δ]), 0),",
+                "    (\"%Profit Δ\", NAMEOF('.Measures'[%Profit Δ]), 1),",
+                "    (\"%Sales Δ\", NAMEOF('.Measures'[%Sales Δ]), 2),",
+                "    (\"Cost\", NAMEOF('.Measures'[Total Cost]), 3),",
+                "    (\"Sales\", NAMEOF('.Measures'[Total Sales]), 4),",
+                "    (\"Profit\", NAMEOF('.Measures'[Total Profit]), 5)",
+                "}"
+              ],
+              "type": "calculated"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Parameter",
+        "annotations": [
+          {
+            "name": "PBI_Id",
+            "value": "353abf6790f74ced8d62fbd5ce0693fa"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Parameter",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "isNameInferred": false,
+            "lineageTag": "25257da5-0415-460f-9f22-a655279e9fd1",
+            "relatedColumnDetails": {
+              "groupByColumns": [
+                {
+                  "groupingColumn": "Parameter Fields"
+                }
+              ]
+            },
+            "sortByColumn": "Parameter Order",
+            "sourceColumn": "[Value1]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Parameter Fields",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "extendedProperties": [
+              {
+                "name": "ParameterMetadata",
+                "type": "json",
+                "value": {
+                  "kind": 2,
+                  "version": 3
+                }
+              }
+            ],
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "isNameInferred": false,
+            "lineageTag": "0f49bdcf-c677-4d1c-abad-857cd62fe6f6",
+            "sortByColumn": "Parameter Order",
+            "sourceColumn": "[Value2]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Parameter Order",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "isNameInferred": false,
+            "lineageTag": "d45fa83b-24ff-4a1c-a463-ed3f47251c69",
+            "sourceColumn": "[Value3]",
+            "summarizeBy": "sum",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Category",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "expression": [
+              "SWITCH(",
+              "    TRUE(),",
+              "    CONTAINSSTRING(Parameter[Parameter], \"Cost\"), \"Cost\",",
+              "    CONTAINSSTRING(Parameter[Parameter], \"Sales\"), \"Sales\",",
+              "    CONTAINSSTRING(Parameter[Parameter], \"Profit\"), \"Profit\"",
+              ")"
+            ],
+            "isDataTypeInferred": true,
+            "lineageTag": "4da12130-320d-422d-b639-e057af8cd562",
+            "summarizeBy": "none",
+            "type": "calculated"
+          }
+        ],
+        "lineageTag": "def771b9-ba46-49ee-89c9-3c7d7e147500",
+        "partitions": [
+          {
+            "name": "Parameter",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "{",
+                "    (\"%Cost Δ\", NAMEOF('.Measures'[%Cost Δ - Brand Parameter]), 0),",
+                "    (\"%Profit Δ\", NAMEOF('.Measures'[%Profit Δ - Brand Parameter]), 1),",
+                "    (\"%Sales Δ\", NAMEOF('.Measures'[%Sales Δ - Brand Parameter]), 2),",
+                "    (\"Cummulative Cost\", NAMEOF('.Measures'[Cummulative Cost]), 3),",
+                "    (\"Cummulative Profit\", NAMEOF('.Measures'[Cummulative Profit]), 4),",
+                "    (\"Cummulative Sales\", NAMEOF('.Measures'[Cummulative Sales]), 5)",
+                "}"
+              ],
+              "type": "calculated"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Metric Table",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Metric",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "173438b3-b45d-41d9-8faf-796a6ebd9a8e",
+            "sourceColumn": "Metric",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "582c830d-8c77-4830-9d76-6c9a46524d87",
+        "partitions": [
+          {
+            "name": "Metric Table",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i45Wcs4vLlGK1YlWCk7MSS0GswKK8tMygYKxAA==\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Metric = _t]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Metric\", type text}})",
                 "in",
                 "    #\"Changed Type\""
               ],

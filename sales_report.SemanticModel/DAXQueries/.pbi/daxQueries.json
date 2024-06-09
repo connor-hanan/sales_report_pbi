@@ -1,7 +1,8 @@
 {
   "version": "1.0.0",
   "tabOrder": [
-    "Key Measures"
+    "IBCS Measures",
+    "Query 2"
   ],
-  "defaultTab": "Key Measures"
+  "defaultTab": "IBCS Measures"
 }
