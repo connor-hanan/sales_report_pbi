@@ -1,5 +1,5 @@
 # Overview
-- Created a Power BI report that has customers segmented by profitability. The profitability is in a stand alone table not connected to the model and is easily adjustable.
+- Created a Power BI report that segmentes the customers into group by profitability. The profitability metric, is a stand alone table not connected to the model, and is easily adjustable.
 
   ## DAX
   - Details about some of the DAX used in the report.
@@ -20,25 +20,7 @@
       )
   )
   ```
-  - The following DAX code is essentialy the same thing, but I'm using the code to filter my date table. This way I can have pre defined date periods as filters and can use buttons instead of a date slider.
-
-  ```DAX
-  Sales = VAR _DatePeriod = SELECTEDVALUE('Date Periods'[Periods])
-  VAR _DateFilter =
-    SWITCH(
-        _DatePeriod,
-        VALUES('Date Periods'[Periods]), VALUES('Date Periods'[Starting Day])
-    )
-  RETURN
-    CALCULATE(
-        [Total Sales],
-        FILTER(
-            Dates, 
-            Dates[Date] >=_DateFilter
-        )
-    )
-  ```
 # Final Report
-- Here's the report in all it's glory. Feel free to clone the repo and check everything out for yourself!
+- Here's the report in all it's glory.
 
 ![resources/sales_report_screenshot.png](resources/sales_report_screenshot.png)
