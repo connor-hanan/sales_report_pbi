@@ -12,7 +12,7 @@
       },
       {
         "name": "PBIDesktopVersion",
-        "value": "2.129.1229.0 (24.05)"
+        "value": "2.130.754.0 (24.06)"
       },
       {
         "name": "PBI_ProTooling",
@@ -38,6 +38,27 @@
     },
     "defaultPowerBIDataSourceVersion": "powerBI_V3",
     "discourageImplicitMeasures": true,
+    "queryGroups": [
+      {
+        "annotations": [
+          {
+            "name": "PBI_QueryGroupOrder",
+            "value": "0"
+          }
+        ],
+        "folder": "Fact Table"
+      },
+      {
+        "annotations": [
+          {
+            "name": "PBI_QueryGroupOrder",
+            "value": "1"
+          }
+        ],
+        "description": "These tables filter the fact table.",
+        "folder": "Dim Tables"
+      }
+    ],
     "relationships": [
       {
         "name": "6e6d225c-4c62-4ff8-be58-80eb89fd0657",
@@ -207,6 +228,7 @@
           {
             "name": "Customers",
             "mode": "import",
+            "queryGroup": "Dim Tables",
             "source": {
               "expression": [
                 "let",
@@ -591,6 +613,7 @@
           {
             "name": "Dates",
             "mode": "import",
+            "queryGroup": "Dim Tables",
             "source": {
               "expression": [
                 "let",
@@ -856,6 +879,7 @@
           {
             "name": "Location",
             "mode": "import",
+            "queryGroup": "Dim Tables",
             "source": {
               "expression": [
                 "let",
@@ -1021,6 +1045,7 @@
           {
             "name": "Products",
             "mode": "import",
+            "queryGroup": "Dim Tables",
             "source": {
               "expression": [
                 "let",
@@ -1180,6 +1205,7 @@
           {
             "name": "Sales",
             "mode": "import",
+            "queryGroup": "Fact Table",
             "source": {
               "expression": [
                 "let",
@@ -1252,6 +1278,7 @@
           {
             "name": "Sales People",
             "mode": "import",
+            "queryGroup": "Dim Tables",
             "source": {
               "expression": [
                 "let",
