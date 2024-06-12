@@ -1,4 +1,8 @@
 # Overview
+<<<<<<< HEAD
+=======
+- Created a Power BI report that segmentes the customers into group by profitability. The profitability metric, is a stand alone table not connected to the model, and is easily adjustable.
+>>>>>>> 2f6267e7d48e98920efac0e0ab0dea031ecf0c4c
 
 - Developed a Power BI report that features customer segmentaion, DAX code that dynamically filters based on user input, as well as a custom IBCS inspired bar chart using native Power BI visuals.
 - I plan on addinga Xgboosted Python visual soon that will predict customer or product profit over time.
